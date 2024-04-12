@@ -1,10 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h> // for malloc and free
-
-// Define HASH_SIZE as a constant variable
-#define HASH_SIZE 100 // Choose an appropriate hash size
-
-// RecordType
+#include <stdlib.h>
+#define HASH_SIZE 100 
 struct RecordType
 {
     int id;
@@ -12,11 +8,10 @@ struct RecordType
     int order;
 };
 
-// HashType: A hash table to store records
 struct HashType
 {
-    struct RecordType* record; // Pointer to the record
-    int occupied;              // Flag to indicate if the entry is occupied
+    struct RecordType* record;
+    int occupied;            
 };
 
 
@@ -111,26 +106,20 @@ int main(void)
     }
 
     // Insert records into the hash table
-
-    // Insert records into the hash table
     for (int i = 0; i < recordSz; ++i)
     {
         int h = hash(pRecords[i].id); // Get hash value for the record
         // Find an empty slot
         while (hashTable[h].occupied)
         {
-            h = (h + 1) % HASH_SIZE; // Linear probing
+            h = (h + 1) % HASH_SIZE;
         }
         // Insert the record
         hashTable[h].record = &pRecords[i];
         hashTable[h].occupied = 1;
     }
 
-
-    // Display records stored in the hash table
     displayRecordsInHash(hashTable, HASH_SIZE);
-
-    // Free dynamically allocated memory
     free(pRecords);
 
     return 0;
